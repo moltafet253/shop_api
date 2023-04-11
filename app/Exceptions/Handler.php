@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Error;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\DB;
@@ -82,6 +83,11 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof QueryException) {
+            DB::rollBack();
+            return $this->errorResponse($e->getMessage(), 500);
+        }
+
+        if ($e instanceof RelationNotFoundException) {
             DB::rollBack();
             return $this->errorResponse($e->getMessage(), 500);
         }
