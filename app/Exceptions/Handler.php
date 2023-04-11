@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use Error;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

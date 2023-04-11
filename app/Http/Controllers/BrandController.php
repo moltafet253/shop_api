@@ -85,7 +85,9 @@ class BrandController extends ApiController
      */
     public function destroy(Brand $brand)
     {
+        DB::beginTransaction();
         $brand->delete();
+        DB::commit();
         return $this->successResponse(new BrandResource($brand), 200);
     }
 }
